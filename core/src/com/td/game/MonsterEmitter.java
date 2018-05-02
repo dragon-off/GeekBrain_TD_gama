@@ -7,11 +7,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterEmitter {
-    public class Wave {
+public class MonsterEmitter implements Serializable {
+    public class Wave implements Serializable {
         private float time;
         private int routeIndex;
         private int monstersCount;
@@ -23,21 +24,28 @@ public class MonsterEmitter {
         }
     }
 
-    private Map map;
-    private Monster[] monsters;
+    private transient Map map;
+    private com.td.game.obj.Monster[] monsters;
     private Wave[] waves;
     private float spawnTimer;
     private int currentWave;
+    private transient TextureAtlas atlas;
 
-    public Monster[] getMonsters() {
+    public com.td.game.obj.Monster[] getMonsters() {
         return monsters;
     }
 
+    public void setAtlas(TextureAtlas atlas) {
+        this.atlas = atlas;
+    }
+
     public MonsterEmitter(TextureAtlas atlas, Map map, int maxSize) {
+        this.atlas = atlas;
+
         this.map = map;
-        this.monsters = new Monster[maxSize];
+        this.monsters = new com.td.game.obj.Monster[maxSize];
         for (int i = 0; i < monsters.length; i++) {
-            this.monsters[i] = new Monster(atlas, map, 0);
+            this.monsters[i] = new com.td.game.obj.Monster(atlas, map, 0);
         }
         loadScenario("scenario1");
     }
@@ -105,5 +113,14 @@ public class MonsterEmitter {
         }
     }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
 
+    public void loadSaveCondition() {
+        for (int i = 0; i < monsters.length; i++) {
+            monsters[i].setMap(map);
+            monsters[i].setAtlas(atlas);
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package com.td.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -72,7 +71,6 @@ public class Map {
 
     private int width;
     private int height;
-
     private CellType[][] data;
     private List<Route> routes;
     private TextureRegion textureGrass;

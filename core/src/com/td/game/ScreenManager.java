@@ -3,7 +3,6 @@ package com.td.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -20,7 +19,7 @@ public class ScreenManager {
     private SpriteBatch batch;
     private GameScreen gameScreen;
     private LoadingScreen loadingScreen;
-    private MenuScreen menuScreen;
+    private com.td.game.gui.MenuScreen menuScreen;
     private Screen targetScreen;
     private Viewport viewport;
     private Camera camera;
@@ -43,8 +42,8 @@ public class ScreenManager {
         this.batch = batch;
         this.camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         this.viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        this.gameScreen = new GameScreen(batch, camera);
-        this.menuScreen = new MenuScreen(batch);
+        this.menuScreen = new com.td.game.gui.MenuScreen(batch);
+        this.gameScreen = new GameScreen(batch, camera, menuScreen);
         this.loadingScreen = new LoadingScreen(batch);
     }
 

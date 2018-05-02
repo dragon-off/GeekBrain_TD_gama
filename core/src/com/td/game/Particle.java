@@ -1,11 +1,8 @@
 package com.td.game;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool;
 
-/**
- * Created by FlameXander on 02.07.2017.
- */
+
 public class Particle implements Poolable {
     private Vector2 position;
     private Vector2 velocity;

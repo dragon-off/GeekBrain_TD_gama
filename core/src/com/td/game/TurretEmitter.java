@@ -7,11 +7,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurretEmitter {
-    public class TurretTemplate {
+public class TurretEmitter implements Serializable {
+    public class TurretTemplate implements Serializable {
         private int imageIndex;
         private int cost;
         private int damage;
@@ -49,10 +50,10 @@ public class TurretEmitter {
         }
     }
 
-    private GameScreen gameScreen;
-    private TextureAtlas atlas;
-    private Map map;
-    private Turret[] turrets;
+    private transient GameScreen gameScreen;
+    private transient TextureAtlas atlas;
+    private transient Map map;
+    private com.td.game.obj.Turret[] turrets;
     private TurretTemplate[] templates;
 
     public TurretEmitter(TextureAtlas atlas, GameScreen gameScreen, Map map) {
@@ -60,10 +61,10 @@ public class TurretEmitter {
         this.gameScreen = gameScreen;
         this.map = map;
         this.atlas = atlas;
-        this.turrets = new Turret[20];
+        this.turrets = new com.td.game.obj.Turret[20];
         TextureRegion[] regions = new TextureRegion(atlas.findRegion("turrets")).split(80, 80)[0];
         for (int i = 0; i < turrets.length; i++) {
-            turrets[i] = new Turret(regions, gameScreen, map, 0, 0);
+            turrets[i] = new com.td.game.obj.Turret(regions, gameScreen, map, 0, 0);
         }
     }
 
@@ -111,6 +112,14 @@ public class TurretEmitter {
         }
     }
 
+    public void upgradeTurret(int cellX, int cellY) {
+            for (int i = 0; i < turrets.length; i++) {
+                if (turrets[i].isActive() && turrets[i].getCellX() == cellX && turrets[i].getCellY() == cellY) {
+                    turrets[i].upgRange(50);
+                }
+            }
+    }
+
     public void loadTurretData() {
         BufferedReader br = null;
         List<String> lines = new ArrayList<String>();
@@ -121,17 +130,37 @@ public class TurretEmitter {
                 lines.add(str);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+
         } finally {
             try {
                 br.close();
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
         templates = new TurretTemplate[lines.size() - 1];
         for (int i = 1; i < lines.size(); i++) {
             templates[i - 1] = new TurretTemplate(lines.get(i));
+        }
+    }
+
+    public void setGameScreen(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+    }
+
+    public void setAtlas(TextureAtlas atlas) {
+        this.atlas = atlas;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public void loadSaveCondition() {
+        for (int i = 0; i < turrets.length; i++) {
+            turrets[i].setRegions(atlas.findRegion("turrets").split(80, 80)[0]);
+            turrets[i].setMap(map);
+            turrets[i].setGameScreen(gameScreen);
         }
     }
 }

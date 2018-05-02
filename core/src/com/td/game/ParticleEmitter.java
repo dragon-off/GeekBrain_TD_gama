@@ -3,12 +3,8 @@ package com.td.game;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 
-/**
- * Created by FlameXander on 02.07.2017.
- */
+
 public class ParticleEmitter extends ObjectPool<Particle> {
     private TextureRegion oneParticle;
 

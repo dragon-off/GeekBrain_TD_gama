@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.td.game.Assets;
 import com.td.game.PlayerInfo;
 
@@ -43,5 +42,9 @@ public class UpperPanel {
         tmpSB.setLength(0);
         tmpSB.append(playerInfo.getMoney());
         moneyLabel.setText(tmpSB);
+    }
+
+    public void setPlayerInfo(PlayerInfo playerInfo) {
+        this.playerInfo = playerInfo;
     }
 }

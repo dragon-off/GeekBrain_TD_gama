@@ -1,6 +1,8 @@
 package com.td.game;
 
-public class PlayerInfo {
+import java.io.Serializable;
+
+public class PlayerInfo implements Serializable {
     private int money;
     private int hp;
     private int hpMax;
@@ -38,4 +40,6 @@ public class PlayerInfo {
         this.hpMax = hpMax;
         this.hp = this.hpMax;
     }
+
+
 }
